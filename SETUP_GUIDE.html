@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orion Setup Guide — Step by Step</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0b0c0f;
+  --bg1: #111318;
+  --bg2: #181b21;
+  --bg3: #1f2229;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #eceef2;
+  --text2: #9ba3b0;
+  --text3: #5f6878;
+  --lime: #c8f04d;
+  --lime2: #b0d93e;
+  --lime-dim: rgba(200,240,77,0.10);
+  --red: #f87171;
+  --green: #34d399;
+  --blue: #60a5fa;
+  --amber: #fbbf24;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 780px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* HERO */
+.hero {
+  padding: 60px 0 48px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 14px; background: var(--lime-dim);
+  border: 1px solid rgba(200,240,77,0.2); border-radius: 20px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--lime); margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: var(--serif); font-size: 44px; line-height: 1.1;
+  letter-spacing: -0.5px; margin-bottom: 14px;
+}
+.hero p { font-size: 17px; color: var(--text2); max-width: 560px; line-height: 1.65; }
+
+/* TIME ESTIMATE */
+.time-chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+.time-chip {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px; background: var(--bg2);
+  border: 1px solid var(--border2); border-radius: 8px;
+  font-size: 13px; color: var(--text2);
+}
+.time-chip strong { color: var(--text); font-weight: 600; }
+
+/* OVERVIEW */
+.overview {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  margin-bottom: 52px;
+}
+.overview-card {
+  background: var(--bg1); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px;
+  text-align: center;
+}
+.overview-emoji { font-size: 28px; margin-bottom: 10px; }
+.overview-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.overview-desc { font-size: 12.5px; color: var(--text3); line-height: 1.5; }
+
+/* PHASE */
+.phase { margin-bottom: 56px; }
+.phase-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.phase-num {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--lime); color: #0b0c0f;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; flex-shrink: 0;
+}
+.phase-title { font-size: 20px; font-weight: 700; }
+.phase-sub { font-size: 13px; color: var(--text3); margin-top: 2px; }
+
+/* STEP */
+.step { margin-bottom: 28px; }
+.step-label {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.step-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--bg3); border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: var(--text2); flex-shrink: 0;
+}
+.step-name { font-size: 15px; font-weight: 600; }
+.step-body { padding-left: 32px; }
+.step-desc { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 12px; }
+
+/* CALLOUTS */
+.callout {
+  border-radius: 10px; padding: 14px 18px; margin: 14px 0;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.callout.info  { background: rgba(96,165,250,0.08);  border: 1px solid rgba(96,165,250,0.2);  }
+.callout.tip   { background: rgba(200,240,77,0.08);  border: 1px solid rgba(200,240,77,0.18); }
+.callout.warn  { background: rgba(251,191,36,0.08);  border: 1px solid rgba(251,191,36,0.2);  }
+.callout.done  { background: rgba(52,211,153,0.08);  border: 1px solid rgba(52,211,153,0.2);  }
+.callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.callout-text { font-size: 13.5px; line-height: 1.65; color: var(--text2); }
+.callout-text strong { color: var(--text); }
+.callout-text a { color: var(--lime); text-decoration: underline; }
+
+/* CODE */
+code {
+  font-family: var(--mono); font-size: 12.5px;
+  background: var(--bg3); border: 1px solid var(--border2);
+  padding: 2px 7px; border-radius: 5px; color: var(--lime);
+}
+.code-block {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 10px; overflow: hidden; margin: 12px 0;
+}
+.code-block-header {
+  padding: 8px 14px; background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.code-block-label { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: 0.06em; font-family: var(--mono); }
+.code-block pre {
+  padding: 16px; overflow-x: auto; font-family: var(--mono);
+  font-size: 13px; line-height: 1.7; color: var(--text2);
+}
+.code-block .hl { color: var(--lime); }
+.code-block .cm { color: var(--text3); font-style: italic; }
+.code-block .kw { color: var(--blue); }
+.code-block .str { color: var(--amber); }
+
+/* SCREENSHOT PLACEHOLDER */
+.screenshot {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 12px; padding: 28px 20px; margin: 14px 0;
+  text-align: center;
+}
+.screenshot-icon { font-size: 32px; margin-bottom: 8px; }
+.screenshot-text { font-size: 13px; color: var(--text3); }
+.screenshot-highlight { font-weight: 700; color: var(--lime); }
+
+/* ENV TABLE */
+.env-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
+.env-table th { padding: 10px 14px; background: var(--bg3); text-align: left; font-weight: 700; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text3); border-bottom: 1px solid var(--border2); }
+.env-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: top; }
+.env-table tr:last-child td { border-bottom: none; }
+.env-table .key { font-family: var(--mono); font-size: 12px; color: var(--lime); white-space: nowrap; }
+.env-table .src { font-size: 12px; color: var(--text3); }
+
+/* CHECKLIST */
+.checklist { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+.check-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 16px; background: var(--bg1);
+  border: 1px solid var(--border); border-radius: 10px;
+}
+.check-box {
+  width: 20px; height: 20px; border-radius: 6px;
+  border: 2px solid var(--border2); flex-shrink: 0; margin-top: 1px;
+  cursor: pointer; transition: all 0.15s;
+}
+.check-box:hover { border-color: var(--lime); }
+.check-text { font-size: 14px; color: var(--text2); line-height: 1.5; }
+.check-text strong { color: var(--text); }
+
+/* LINK BUTTONS */
+.link-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 8px;
+  font-size: 13.5px; font-weight: 700; text-decoration: none;
+  cursor: pointer; transition: all 0.15s; border: none;
+  margin: 4px 4px 4px 0;
+}
+.link-btn.primary { background: var(--lime); color: #0b0c0f; }
+.link-btn.primary:hover { background: var(--lime2); }
+.link-btn.ghost { background: var(--bg2); border: 1px solid var(--border2); color: var(--text2); }
+.link-btn.ghost:hover { background: var(--bg3); color: var(--text); }
+
+/* SUCCESS BOX */
+.success-box {
+  background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.25);
+  border-radius: 16px; padding: 28px 32px; margin: 40px 0;
+  text-align: center;
+}
+.success-box h3 { font-family: var(--serif); font-size: 28px; margin-bottom: 10px; }
+.success-box p { font-size: 15px; color: var(--text2); }
+
+/* TROUBLESHOOT */
+.trouble-item { margin-bottom: 20px; }
+.trouble-q {
+  font-size: 14px; font-weight: 700; color: var(--amber);
+  margin-bottom: 6px; display: flex; gap: 8px;
+}
+.trouble-q::before { content: '⚠️'; }
+.trouble-a { font-size: 13.5px; color: var(--text2); line-height: 1.65; padding-left: 26px; }
+
+/* DIVIDER */
+hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 32px; }
+  .overview { grid-template-columns: 1fr; }
+  .time-chips { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">📋 Non-Technical Setup Guide</div>
+    <h1>Get Orion live in under 30 minutes</h1>
+    <p>No coding experience needed. Follow each step in order and you'll have your own AI document platform running — for free — with a live URL you can share with anyone.</p>
+    <div class="time-chips">
+      <div class="time-chip">⏱ <strong>~25 minutes</strong> total time</div>
+      <div class="time-chip">💸 <strong>Free</strong> on all platforms</div>
+      <div class="time-chip">🖥 <strong>Works on</strong> Mac, Windows, Linux</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="overview">
+    <div class="overview-card">
+      <div class="overview-emoji">📁</div>
+      <div class="overview-title">GitHub</div>
+      <div class="overview-desc">Stores your code online so Vercel can read it</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-emoji">🔥</div>
+      <div class="overview-title">Firebase</div>
+      <div class="overview-desc">Handles login, database & file storage</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-emoji">🚀</div>
+      <div class="overview-title">Vercel</div>
+      <div class="overview-desc">Hosts your app and gives you a live URL</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 1 — GITHUB
+  ═══════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div>
+        <div class="phase-title">Put your code on GitHub</div>
+        <div class="phase-sub">~5 minutes · GitHub is like a Google Drive for code</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">1</div><div class="step-name">Create a free GitHub account</div></div>
+      <div class="step-body">
+        <p class="step-desc">If you don't have one, go to <strong>github.com</strong> and sign up — it's free.</p>
+        <a href="https://github.com/signup" class="link-btn primary" target="_blank">→ Sign up at github.com</a>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">2</div><div class="step-name">Create a new repository</div></div>
+      <div class="step-body">
+        <p class="step-desc">A repository (repo) is a folder for your project on GitHub.</p>
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click the <strong>+</strong> button top-right → <strong>New repository</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Name it <strong>orion-saas</strong> (or anything you like)</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Set it to <strong>Private</strong> (keeps your code safe)</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Create repository</strong></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">3</div><div class="step-name">Upload your project files</div></div>
+      <div class="step-body">
+        <p class="step-desc">On your new repository page, you'll see an option to upload files directly — no coding needed.</p>
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>uploading an existing file</strong> on the repo page</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Unzip the <code>orion-saas.zip</code> file on your computer first</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Drag the entire <strong>orion-saas</strong> folder contents into the GitHub upload area</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Scroll down and click <strong>Commit changes</strong></div></div>
+        </div>
+        <div class="callout tip">
+          <div class="callout-icon">💡</div>
+          <div class="callout-text"><strong>Tip:</strong> Upload the <em>contents</em> of the folder (src, public, package.json etc.) — not the folder itself. You should see files like <code>package.json</code> at the root of your repo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 2 — FIREBASE
+  ═══════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div>
+        <div class="phase-title">Set up Firebase</div>
+        <div class="phase-sub">~10 minutes · Free Google service — handles login, database & file storage</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">1</div><div class="step-name">Create a Firebase project</div></div>
+      <div class="step-body">
+        <a href="https://console.firebase.google.com" class="link-btn primary" target="_blank">→ Open Firebase Console</a>
+        <div class="checklist" style="margin-top:14px;">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Sign in with your Google account</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Add project</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Name it <strong>orion-saas</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Disable Google Analytics (not needed) → Click <strong>Create project</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Wait ~30 seconds, then click <strong>Continue</strong></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">2</div><div class="step-name">Enable Authentication</div></div>
+      <div class="step-body">
+        <p class="step-desc">This lets users log in to your app.</p>
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">In the left sidebar, click <strong>Authentication</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Get started</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Email/Password</strong> → toggle it <strong>ON</strong> → Save</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Add new provider</strong> → <strong>Google</strong> → toggle <strong>ON</strong> → add your email as support email → Save</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">3</div><div class="step-name">Create Firestore Database</div></div>
+      <div class="step-body">
+        <p class="step-desc">This stores conversations, file info, and user data.</p>
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">In the left sidebar, click <strong>Firestore Database</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Create database</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Select <strong>Start in production mode</strong> → Next</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Choose a location close to you (e.g. <strong>us-central1</strong> for USA) → <strong>Enable</strong></div></div>
+        </div>
+        <div class="callout warn">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-text"><strong>Important:</strong> After creating, go to the <strong>Rules</strong> tab and paste in the security rules below. Without this, your database will block all reads/writes.</div>
+        </div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Firestore Rules — paste into Rules tab</span></div>
+          <pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == userId;
+    }
+    match /files/{fileId} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == resource.data.uid;
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid;
+    }
+    match /conversations/{convId} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == resource.data.uid;
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid;
+      match /messages/{messageId} {
+        allow read, write: if request.auth != null
+          && get(/databases/$(database)/documents/conversations/$(convId))
+            .data.uid == request.auth.uid;
+      }
+    }
+  }
+}</pre>
+        </div>
+        <p style="font-size:13px;color:var(--text3);margin-top:8px;">After pasting, click <strong style="color:var(--text)">Publish</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">4</div><div class="step-name">Enable Storage</div></div>
+      <div class="step-body">
+        <p class="step-desc">This is where uploaded documents are saved.</p>
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">In the left sidebar, click <strong>Storage</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Get started</strong> → <strong>Next</strong> → <strong>Done</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Go to the <strong>Rules</strong> tab and replace the existing rules with:</div></div>
+        </div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Storage Rules — paste into Rules tab</span></div>
+          <pre>rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /users/{userId}/files/{allPaths=**} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.size <= 25 * 1024 * 1024;
+    }
+  }
+}</pre>
+        </div>
+        <p style="font-size:13px;color:var(--text3);margin-top:8px;">Click <strong style="color:var(--text)">Publish</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">5</div><div class="step-name">Get your Firebase config keys</div></div>
+      <div class="step-body">
+        <p class="step-desc">These are like a password that connects your app to Firebase. Keep them safe.</p>
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click the <strong>⚙️ gear icon</strong> (top-left) → <strong>Project settings</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Scroll down to <strong>Your apps</strong> section</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click the <strong>&lt;/&gt;</strong> (Web) icon to add a web app</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Give it a nickname like <strong>orion-web</strong> → click <strong>Register app</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">You'll see a code block — <strong>copy the values</strong> inside <code>firebaseConfig</code></div></div>
+        </div>
+        <div class="callout info">
+          <div class="callout-icon">ℹ️</div>
+          <div class="callout-text">The config looks like this — you need to copy each value:<br><br>
+          <code style="display:block;margin-top:8px;white-space:pre;font-size:12px;color:var(--text2);">const firebaseConfig = {
+  apiKey: "AIzaSy...",           ← copy this
+  authDomain: "your.firebaseapp.com", ← copy this
+  projectId: "your-project",    ← copy this
+  storageBucket: "your.appspot.com",  ← copy this
+  messagingSenderId: "12345",   ← copy this
+  appId: "1:12345:web:abc"      ← copy this
+};</code></div>
+        </div>
+        <p class="step-desc" style="margin-top:12px;">Save these in a text file for the next phase — you'll need them all.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 3 — VERCEL
+  ═══════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div>
+        <div class="phase-title">Deploy on Vercel</div>
+        <div class="phase-sub">~5 minutes · This gives your app a live URL anyone can visit</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">1</div><div class="step-name">Create a free Vercel account</div></div>
+      <div class="step-body">
+        <a href="https://vercel.com/signup" class="link-btn primary" target="_blank">→ Sign up at vercel.com</a>
+        <div class="callout tip" style="margin-top:12px;">
+          <div class="callout-icon">💡</div>
+          <div class="callout-text"><strong>Sign up with GitHub</strong> — this makes connecting your repo much easier (one click).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">2</div><div class="step-name">Import your GitHub repository</div></div>
+      <div class="step-body">
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">On your Vercel dashboard, click <strong>Add New… → Project</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Import</strong> next to your <strong>orion-saas</strong> repo</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>Don't click Deploy yet</strong> — you need to add environment variables first</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">3</div><div class="step-name">Add your environment variables</div></div>
+      <div class="step-body">
+        <p class="step-desc">On the import page, scroll down to find <strong>Environment Variables</strong>. Add each one below — name on the left, value on the right.</p>
+
+        <table class="env-table">
+          <thead>
+            <tr><th>Variable Name</th><th>Where to find the value</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="key">VITE_FIREBASE_API_KEY</td>
+              <td class="src">Firebase config → <code>apiKey</code></td>
+            </tr>
+            <tr>
+              <td class="key">VITE_FIREBASE_AUTH_DOMAIN</td>
+              <td class="src">Firebase config → <code>authDomain</code></td>
+            </tr>
+            <tr>
+              <td class="key">VITE_FIREBASE_PROJECT_ID</td>
+              <td class="src">Firebase config → <code>projectId</code></td>
+            </tr>
+            <tr>
+              <td class="key">VITE_FIREBASE_STORAGE_BUCKET</td>
+              <td class="src">Firebase config → <code>storageBucket</code></td>
+            </tr>
+            <tr>
+              <td class="key">VITE_FIREBASE_MESSAGING_SENDER_ID</td>
+              <td class="src">Firebase config → <code>messagingSenderId</code></td>
+            </tr>
+            <tr>
+              <td class="key">VITE_FIREBASE_APP_ID</td>
+              <td class="src">Firebase config → <code>appId</code></td>
+            </tr>
+            <tr>
+              <td class="key">VITE_GEMINI_API_KEY</td>
+              <td class="src">Your Gemini API key from Google AI Studio</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout warn">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-text"><strong>All 7 variables are required.</strong> If any are missing the app won't work. Double-check for typos — copy and paste the values, don't type them.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">4</div><div class="step-name">Deploy!</div></div>
+      <div class="step-body">
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Deploy</strong> — Vercel will build and deploy your app (takes ~2 minutes)</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">You'll see a URL like <strong>orion-saas-abc123.vercel.app</strong> — that's your live app!</div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click it to open your app in the browser</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 4 — FINAL STEP
+  ═══════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div>
+        <div class="phase-title">One last Firebase step</div>
+        <div class="phase-sub">~2 minutes · Tell Firebase your Vercel URL is allowed to use it</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><div class="step-dot">1</div><div class="step-name">Add your Vercel URL to Firebase Auth</div></div>
+      <div class="step-body">
+        <p class="step-desc">Firebase needs to know your app's URL is allowed. Without this, Google login won't work.</p>
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Go back to Firebase Console → <strong>Authentication</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click the <strong>Settings</strong> tab → <strong>Authorized domains</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Click <strong>Add domain</strong></div></div>
+          <div class="check-item"><div class="check-box"></div><div class="check-text">Paste your Vercel URL (e.g. <code>orion-saas-abc123.vercel.app</code>) → <strong>Add</strong></div></div>
+        </div>
+        <div class="callout done">
+          <div class="callout-icon">✅</div>
+          <div class="callout-text"><strong>That's it!</strong> Your app is now fully live. Visit your Vercel URL, create an account, upload a document, and start chatting with it using AI.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-box">
+    <div style="font-size:48px;margin-bottom:14px;">🎉</div>
+    <h3>Your Orion app is live!</h3>
+    <p style="margin-bottom:16px;">Share your <code>your-app.vercel.app</code> URL with anyone. Every time you push changes to GitHub, Vercel automatically redeploys your app.</p>
+    <div style="font-size:13px;color:var(--text3);">
+      Firebase Free Plan includes: 1GB storage · 50,000 reads/day · 20,000 writes/day · 10GB transfer/month
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- TROUBLESHOOTING -->
+  <div style="margin-bottom:48px;">
+    <h2 style="font-family:var(--serif);font-size:26px;margin-bottom:24px;">Common problems & fixes</h2>
+
+    <div class="trouble-item">
+      <div class="trouble-q">The app loads but login doesn't work</div>
+      <div class="trouble-a">Make sure you added your Vercel URL to Firebase → Authentication → Settings → Authorized domains. Also check that Email/Password and Google are both enabled in the Sign-in methods tab.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">Vercel build fails with an error</div>
+      <div class="trouble-a">Check that all 7 environment variables are added in Vercel → Project Settings → Environment Variables. Even one missing variable will cause the build to fail. Also check that <code>package.json</code> is at the root of your GitHub repo, not inside a subfolder.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">File upload fails or shows an error</div>
+      <div class="trouble-a">Make sure you've enabled Firebase Storage and published the Storage Rules above. Also confirm the <code>VITE_FIREBASE_STORAGE_BUCKET</code> variable is correctly set (it should end in <code>.appspot.com</code>).</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">AI chat doesn't respond or shows an error</div>
+      <div class="trouble-a">Check that your <code>VITE_GEMINI_API_KEY</code> is correct. Get a new key at <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--lime)">aistudio.google.com/app/apikey</a> if needed. Make sure the Gemini API is enabled for your Google account — it's free up to generous limits.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">I made a change but the live site didn't update</div>
+      <div class="trouble-a">Go to your GitHub repo, edit the file (click the pencil icon), make your change, and click <strong>Commit changes</strong>. Vercel will automatically detect the change and redeploy within 1–2 minutes.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">I want to update my environment variables</div>
+      <div class="trouble-a">Go to Vercel → your project → <strong>Settings</strong> → <strong>Environment Variables</strong>. Edit the value and save. Then go to <strong>Deployments</strong> and click <strong>Redeploy</strong> on the latest deployment.</div>
+    </div>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div style="background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:28px 32px;margin-bottom:40px;">
+    <h2 style="font-size:18px;font-weight:700;margin-bottom:16px;">What's next?</h2>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:18px;flex-shrink:0;">🌐</span>
+        <div><strong style="font-size:14px;">Add a custom domain</strong><br><span style="font-size:13px;color:var(--text3);">In Vercel → your project → Settings → Domains. Add any domain you own — Vercel handles the SSL certificate automatically.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:18px;flex-shrink:0;">💰</span>
+        <div><strong style="font-size:14px;">Add payments (Stripe)</strong><br><span style="font-size:13px;color:var(--text3);">Use the Firebase + Stripe extension to charge users for Pro plan access. Search "Stripe Payments" in the Firebase Extensions marketplace.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:18px;flex-shrink:0;">📊</span>
+        <div><strong style="font-size:14px;">Monitor usage</strong><br><span style="font-size:13px;color:var(--text3);">Firebase Console → Usage tab shows reads, writes, and storage used. Vercel Analytics (free) shows visitor traffic.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:18px;flex-shrink:0;">🤖</span>
+        <div><strong style="font-size:14px;">Improve PDF reading</strong><br><span style="font-size:13px;color:var(--text3);">Currently works best with text files. For full PDF text extraction, upgrade to the Gemini Files API — instructions are in the README.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:24px 0;border-top:1px solid var(--border);">
+    <div style="font-size:13px;color:var(--text3);">Orion SaaS · Built with React, Firebase & Google Gemini</div>
+  </div>
+
+</div>
+</body>
+</html>
